@@ -5,11 +5,13 @@
 * @package WP-Zillow-API
 */
 
+/* Exit if accessed directly */
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /**
- * WP_Zillow_API class.
+ * Zillow API Class.
  */
-class WP_Zillow_API{
+class ZillowAPI{
 
 
 	/**
@@ -59,6 +61,61 @@ class WP_Zillow_API{
 	 */
 	function get_monthly_payments( $zws_id, $price, $down, $dollarsdown, $zip, $output, $callback ) {
 
+	}
+
+
+	/**
+	 * Response code message.
+	 *
+	 * @param  [String] $code : Response code to get message from.
+	 * @return [String]       : Message corresponding to response code sent in.
+	 */
+	public function response_code_msg( $code = '' ) {
+		switch ( $code ) {
+			case 0:
+				$msg = __( 'Request successfully processed.','textdomain' );
+				break;
+			case 1:
+				$msg = __( 'Service error-there was a server-side error while processing the request.','textdomain' );
+				break;
+			case 2:
+				$msg = __( 'The specified ZWSID parameter was invalid or not specified in the request.','textdomain' );
+				break;
+			case 3:
+				$msg = __( 'Web services are currently unavailable.','textdomain' );
+				break;
+			case 4:
+				$msg = __( 'The API call is currently unavailable.','textdomain' );
+				break;
+			case 500:
+				$msg = __( 'Invalid or missing address parameter.','textdomain' );
+				break;
+			case 501:
+				$msg = __( 'Invalid or missing citystatezip parameter.','textdomain' );
+				break;
+			case 502:
+				$msg = __( 'No results found.','textdomain' );
+				break;
+			case 503:
+				$msg = __( 'Failed to resolve city, state or ZIP code.','textdomain' );
+				break;
+			case 504:
+				$msg = __( 'No coverage for specified area.','textdomain' );
+				break;
+			case 505:
+				$msg = __( 'Timeout.','textdomain' );
+				break;
+			case 506:
+				$msg = __( 'Address string too long.','textdomain' );
+				break;
+			case 507:
+				$msg = __( 'No exact match found..','textdomain' );
+				break;
+			default:
+				$msg = __( 'Sorry, response code is unknown.' );
+				break;
+		}
+		return $msg;
 	}
 
 }
