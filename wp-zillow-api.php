@@ -24,9 +24,22 @@ class ZillowAPI{
 	 * @param mixed $count The count of reviews you would like to return. If omitted, up to 3 are returned. 10 is maximum.
 	 * @param mixed $output The type of output desired. Specify 'xml' for XML output and 'json' for JSON output. If omitted, 'xml' is assumed.
 	 * @param mixed $return_team_member_reviews If value = 'true', API returns reviews written directly for the account requested, in addition to any reviews attributed to this account from its team members if applicable. If omitted, returned reviews reviews defaults to just those written directly for the account requested.
-	 * @return void
+	 * @return $response API Response.
 	 */
 	function get_reviews( $zws_id, $screenname, $email, $count, $output, $return_team_member_reviews ) {
+
+
+		$api_endpoint = "http://www.zillow.com/webservice/ProReviews.htm";
+
+		$output = "json";
+
+		$zws_id = "";
+
+		$screenname = "";
+
+		$response = wp_remote_get( $api_endpoint . "?zws-id=" . $zws_id . "&screenname=" . $screenname . "&output=" . $output);
+
+		return $response;
 
 	}
 
@@ -65,7 +78,7 @@ class ZillowAPI{
 
 
 	/**
-	 * Response code message.
+	 * Response code message for GetSearchResults.
 	 *
 	 * @param  [String] $code : Response code to get message from.
 	 * @return [String]       : Message corresponding to response code sent in.
