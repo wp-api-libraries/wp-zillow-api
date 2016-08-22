@@ -1,4 +1,4 @@
-# wp-zillow-api
+# WP Zillow API
 
 A WordPress php library for interacting with the Zillow API.
 
