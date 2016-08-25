@@ -14,7 +14,17 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 class ZillowAPI {
 
 
-	define( 'ZILLOW_API_URL', 'https://www.zillow.com/webservice/' )
+
+    /**
+     * Zillow API Endpoint
+     *
+     * (default value: 'https://www.zillow.com/webservice/')
+     *
+     * @var string
+     * @access protected
+     */
+    protected $api_endpoint = 'https://www.zillow.com/webservice/';
+
 
 
 	/**
@@ -31,15 +41,13 @@ class ZillowAPI {
 	 */
 	function get_reviews( $zws_id, $screenname, $email, $count, $output, $return_team_member_reviews ) {
 
-		$api_endpoint = ZILLOW_API_URL . 'ProReviews.htm';
-
 		$output = 'json';
 
 		$zws_id = '';
 
 		$screenname = '';
 
-		$response = wp_remote_get( $api_endpoint . '?zws-id=' . $zws_id . '&screenname=' . $screenname . '&output=' . $output );
+		$response = wp_remote_get( $api_endpoint . 'ProReviews.htm?zws-id=' . $zws_id . '&screenname=' . $screenname . '&output=' . $output );
 
 		return $response;
 
