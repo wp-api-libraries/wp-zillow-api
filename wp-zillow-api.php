@@ -1,6 +1,6 @@
 <?php
 /**
- * WP-Zillow-API
+ * WP-Zillow-API (http://www.zillow.com/howto/api/APIOverview.htm)
  *
  * @package WP-Zillow-API
  */
@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  * Zillow API Class.
  */
 class ZillowAPI {
+
+
+	define( 'ZILLOW_API_URL', 'https://www.zillow.com/webservice/' )
 
 
 	/**
@@ -28,7 +31,7 @@ class ZillowAPI {
 	 */
 	function get_reviews( $zws_id, $screenname, $email, $count, $output, $return_team_member_reviews ) {
 
-		$api_endpoint = 'http://www.zillow.com/webservice/ProReviews.htm';
+		$api_endpoint = ZILLOW_API_URL . 'ProReviews.htm';
 
 		$output = 'json';
 
