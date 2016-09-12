@@ -1,6 +1,6 @@
 <?php
 /**
- * WP-Zillow-API (http://www.zillow.com/howto/api/APIOverview.htm)
+ * WP-Zillow-API (https://www.zillow.com/howto/api/APIOverview.htm)
  *
  * @package WP-Zillow-API
  */
@@ -132,7 +132,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 				$msg = __( 'Address string too long.', 'text-domain' );
 				break;
 			case 507:
-				$msg = __( 'No exact match found..', 'text-domain' );
+				$msg = __( 'No exact match found.', 'text-domain' );
 				break;
 			default:
 				$msg = __( 'Sorry, response code is unknown.' );
