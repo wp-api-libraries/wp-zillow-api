@@ -68,6 +68,10 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 		}
 
+		function get_monthly_payments( $zws_id, $price, $down, $dollarsdown, $zip, $output, $callback ) {
+
+		}
+
 
 		/**
 		 * Get Monthly Payments (https://www.zillow.com/howto/api/GetMonthlyPayments.htm)
@@ -83,6 +87,35 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * @return void
 		 */
 		function get_monthly_payments( $zws_id, $price, $down, $dollarsdown, $zip, $output, $callback ) {
+
+		}
+
+
+		function get_deep_search_results( $zws_id, $address, $citystatezip, $rentzestimate ) {
+
+		}
+
+		function get_deep_comps( $zws_id, $zpid, $count, $rentzestimate ) {
+
+		}
+
+		function get_updated_property_details( $zws_id, $zpid ) {
+
+		}
+
+		function get_search_results( $zws_id, $address, $citystatezip, $rentzestimate ) {
+
+		}
+
+		function get_zestimate( $zws_id, $zpid, $rentzestimate ) {
+
+		}
+
+		function get_chart( $zws_id, $zpid, $unit_type, $width, $height, $chart_duration ) {
+
+		}
+
+		function get_comps( $zws_id, $zpid, $count, $rentzestimate ) {
 
 		}
 
