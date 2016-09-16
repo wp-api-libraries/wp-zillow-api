@@ -117,7 +117,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * @param mixed $callback The name of the JavaScript callback function used to process the returned JSON data. If specified, the returned JSON will be wrapped in a function call with the specified function name. This parameter is intended for use with dynamic script tags. The callback function is only used for JSON output.
 		 * @return void
 		 */
-		function get_rate_summary( $zws_id, $state, $output, $callback ) {
+		function get_rate_summary( $state, $output, $callback ) {
 
 		}
 
@@ -134,36 +134,36 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * @param mixed $callback The name of the JavaScript callback function used to process the returned JSON data. If specified, the returned JSON will be wrapped in a function call with the specified function name. This parameter is intended for use with dynamic script tags. The callback function is only used for JSON output.
 		 * @return void
 		 */
-		function get_monthly_payments( $zws_id, $price, $down, $dollarsdown, $zip, $output, $callback ) {
+		function get_monthly_payments( $price, $down, $dollarsdown, $zip, $output, $callback ) {
 
 		}
 
 
-		function get_deep_search_results( $zws_id, $address, $citystatezip, $rentzestimate ) {
+		function get_deep_search_results( $address, $citystatezip, $rentzestimate ) {
 
 		}
 
-		function get_deep_comps( $zws_id, $zpid, $count, $rentzestimate ) {
+		function get_deep_comps( $zpid, $count, $rentzestimate ) {
 
 		}
 
-		function get_updated_property_details( $zws_id, $zpid ) {
+		function get_updated_property_details( $zpid ) {
 
 		}
 
-		function get_search_results( $zws_id, $address, $citystatezip, $rentzestimate ) {
+		function get_search_results( $address, $citystatezip, $rentzestimate ) {
 
 		}
 
-		function get_zestimate( $zws_id, $zpid, $rentzestimate ) {
+		function get_zestimate( $zpid, $rentzestimate ) {
 
 		}
 
-		function get_chart( $zws_id, $zpid, $unit_type, $width, $height, $chart_duration ) {
+		function get_chart( $zpid, $unit_type, $width, $height, $chart_duration ) {
 
 		}
 
-		function get_comps( $zws_id, $zpid, $count, $rentzestimate ) {
+		function get_comps( $zpid, $count, $rentzestimate ) {
 
 		}
 
