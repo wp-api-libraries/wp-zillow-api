@@ -5,9 +5,11 @@
  * @package WP-Zillow-API
  */
 
-/* Exit if accessed directly */
+/* Exit if accessed directly. */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
+
+/* Check if class exists. */
 if ( ! class_exists( 'ZillowAPI' ) ) {
 
 	/**
@@ -16,16 +18,66 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 	class ZillowAPI {
 
 		/**
-		 * Zillow API Endpoint
+		 * Zillow API Key (aka ZWSID).
+		 *
+		 * @var string
+		 */
+		static private $zws_id;
+
+		/**
+		* Return format. XML or JSON.
+		*
+		* @var [string
+	 	*/
+	 	static private $output;
+
+		/**
+		 * Zillow BaseAPI Endpoint
 		 *
 		 * (default value: 'https://www.zillow.com/webservice/')
 		 *
 		 * @var string
 		 * @access protected
 		 */
-		protected $api_endpoint = 'https://www.zillow.com/webservice/';
+		protected $base_uri = 'https://www.zillow.com/webservice/';
 
 
+		/**
+		 * __construct function.
+		 *
+		 * @access public
+		 * @param mixed $zws_id ZWSID.
+		 * @return void
+		 */
+		public function __construct( $zws_id, $output = 'json' ) {
+
+			static::$zws_id = $zws_id;
+			static::$output = $output;
+
+		}
+
+
+		/**
+		 * Fetch the request from the API.
+		 *
+		 * @access private
+		 * @param mixed $request Request URL.
+		 * @return $body Body.
+		 */
+		private function fetch( $request ) {
+
+			$response = wp_remote_get( $request );
+			$code = wp_remote_retrieve_response_code( $response );
+
+			if ( 200 !== $code ) {
+				return new WP_Error( 'response-error', sprintf( __( 'Server response code: %d', 'text-domain' ), $code ) );
+			}
+
+			$body = wp_remote_retrieve_body( $response );
+
+			return json_decode( $body );
+
+		}
 
 		/**
 		 * Get Zillow Reviews (https://www.zillow.com/howto/api/ReviewsAPI.htm)
@@ -39,17 +91,18 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * @param mixed $return_team_member_reviews If value = 'true', API returns reviews written directly for the account requested, in addition to any reviews attributed to this account from its team members if applicable. If omitted, returned reviews reviews defaults to just those written directly for the account requested.
 		 * @return $response API Response.
 		 */
-		function get_reviews( $zws_id, $screenname, $email, $count, $output, $return_team_member_reviews ) {
+		function get_reviews( $screenname, $email = null, $count = '3', $returnTeamMemberReviews = null ) {
 
-			$output = 'json';
 
-			$zws_id = '';
+			if ( empty( $screenname ) ) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+			}
 
-			$screenname = '';
 
-			$response = wp_remote_get( $api_endpoint . 'ProReviews.htm?zws-id=' . $zws_id . '&screenname=' . $screenname . '&output=' . $output );
+			$request = $this->base_uri . '/ProReviews.htm?zws-id=' . static::$zws_id . '&screenname=' . $screenname . '&output=json';
 
-			return $response;
+			return $this->fetch( $request );
+
 
 		}
 
@@ -67,11 +120,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_rate_summary( $zws_id, $state, $output, $callback ) {
 
 		}
-
-		function get_monthly_payments( $zws_id, $price, $down, $dollarsdown, $zip, $output, $callback ) {
-
-		}
-
 
 		/**
 		 * Get Monthly Payments (https://www.zillow.com/howto/api/GetMonthlyPayments.htm)
