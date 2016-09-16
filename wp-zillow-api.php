@@ -117,7 +117,12 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * @param mixed $callback The name of the JavaScript callback function used to process the returned JSON data. If specified, the returned JSON will be wrapped in a function call with the specified function name. This parameter is intended for use with dynamic script tags. The callback function is only used for JSON output.
 		 * @return void
 		 */
-		function get_rate_summary( $state, $output, $callback ) {
+		function get_rate_summary( $state = null, $callback = '') {
+
+			$request = $this->base_uri . '/GetRateSummary.htm?zws-id=' . static::$zws_id . '&output=json';
+
+			return $this->fetch( $request );
+
 
 		}
 
@@ -134,12 +139,28 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * @param mixed $callback The name of the JavaScript callback function used to process the returned JSON data. If specified, the returned JSON will be wrapped in a function call with the specified function name. This parameter is intended for use with dynamic script tags. The callback function is only used for JSON output.
 		 * @return void
 		 */
-		function get_monthly_payments( $price, $down, $dollarsdown, $zip, $output, $callback ) {
+		function get_monthly_payments( $price, $down = null, $dollarsdown = null, $zip = null, $output = null, $callback = null ) {
+
+			if ( empty( $price ) ) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+			}
+
+			$request = $this->base_uri . '/GetMonthlyPayments.htm?zws-id=' . static::$zws_id . '&output=json' . '&price=' . $price;
+
+			return $this->fetch( $request );
 
 		}
 
 
-		function get_deep_search_results( $address, $citystatezip, $rentzestimate ) {
+		function get_deep_search_results( $address, $citystatezip, $rentzestimate = null ) {
+
+			if ( empty( $address ) ) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+			}
+
+			$request = $this->base_uri . '/GetMonthlyPayments.htm?zws-id=' . static::$zws_id . '&output=json' . '&address=' . $address . '&citystatezip=' . $citystatezip;
+
+			return $this->fetch( $request );
 
 		}
 
