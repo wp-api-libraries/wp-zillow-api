@@ -34,8 +34,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		/**
 		 * Zillow BaseAPI Endpoint
 		 *
-		 * (default value: 'https://www.zillow.com/webservice/')
-		 *
 		 * @var string
 		 * @access protected
 		 */
@@ -123,7 +121,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			return $this->fetch( $request );
 
-
 		}
 
 		/**
@@ -152,6 +149,15 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		}
 
 
+		/**
+		 * get_deep_search_results function.
+		 *
+		 * @access public
+		 * @param mixed $address
+		 * @param mixed $citystatezip
+		 * @param mixed $rentzestimate (default: null)
+		 * @return void
+		 */
 		function get_deep_search_results( $address, $citystatezip, $rentzestimate = null ) {
 
 			if ( empty( $address ) ) {
@@ -164,19 +170,98 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 		}
 
-		function get_deep_comps( $zpid, $count, $rentzestimate ) {
+
+		/**
+		 * get_deep_comps function.
+		 *
+		 * @access public
+		 * @param mixed $zpid
+		 * @param string $count (default: '5')
+		 * @param bool $rentzestimate (default: false)
+		 * @return void
+		 */
+		function get_deep_comps( $zpid, $count = '5', $rentzestimate = false ) {
+
+			if ( empty( $zpid ) ) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+			}
+
+
+			$request = $this->base_uri . '/GetDeepComps.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid . '&count=' . $count;
+
+			return $this->fetch( $request );
 
 		}
 
+
+		/**
+		 * get_updated_property_details function.
+		 *
+		 * @access public
+		 * @param mixed $zpid
+		 * @return void
+		 */
 		function get_updated_property_details( $zpid ) {
 
+			if ( empty( $zpid ) ) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+			}
+
+
+			$request = $this->base_uri . '/GetUpdatedPropertyDetails.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid;
+
+			return $this->fetch( $request );
+
 		}
 
-		function get_search_results( $address, $citystatezip, $rentzestimate ) {
+
+		/**
+		 * get_search_results function.
+		 *
+		 * @access public
+		 * @param mixed $address
+		 * @param mixed $citystatezip
+		 * @param bool $rentzestimate (default: false)
+		 * @return void
+		 */
+		function get_search_results( $address, $citystatezip, $rentzestimate = false ) {
+
+			if ( empty( $address ) && empty( $citystatezip ) ) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+			}
+
+			$request = $this->base_uri . '/GetUpdatedPropertyDetails.htm?zws-id=' . static::$zws_id . '&address=' . $address . '&citystatezip=' . $citystatezip;
+
+			// return $this->fetch( $request );
+
+			$xml = simplexml_load_file(trim($request));
+
+			echo json_encode($xml);
 
 		}
 
-		function get_zestimate( $zpid, $rentzestimate ) {
+
+		/**
+		 * get_zestimate function.
+		 * http://wern-ancheta.com/blog/2014/03/20/getting-started-with-zillow-api/
+		 * https://github.com/letsgetrandy/wp-zestimate
+		 *
+		 * @access public
+		 * @param mixed $zpid
+		 * @return void
+		 */
+		function get_zestimate( $zpid ) {
+
+			if ( empty( $zpid ) ) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+			}
+
+
+			$request = $this->base_uri . '/GetZestimate.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid;
+
+			$xml = simplexml_load_file(trim($request));
+
+			echo json_encode($xml);
 
 		}
 
