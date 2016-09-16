@@ -164,9 +164,11 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
 			}
 
-			$request = $this->base_uri . '/GetMonthlyPayments.htm?zws-id=' . static::$zws_id . '&output=json' . '&address=' . $address . '&citystatezip=' . $citystatezip;
+			$request = $this->base_uri . '/GetMonthlyPayments.htm?zws-id=' . static::$zws_id . '&address=' . $address . '&citystatezip=' . $citystatezip;
 
-			return $this->fetch( $request );
+			$xml = simplexml_load_file(trim($request));
+
+			echo wp_json_encode($xml);
 
 		}
 
@@ -189,7 +191,9 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetDeepComps.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid . '&count=' . $count;
 
-			return $this->fetch( $request );
+			$xml = simplexml_load_file(trim($request));
+
+			echo wp_json_encode($xml);
 
 		}
 
@@ -210,7 +214,9 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetUpdatedPropertyDetails.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid;
 
-			return $this->fetch( $request );
+			$xml = simplexml_load_file(trim($request));
+
+			echo wp_json_encode($xml);
 
 		}
 
@@ -232,11 +238,10 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetUpdatedPropertyDetails.htm?zws-id=' . static::$zws_id . '&address=' . $address . '&citystatezip=' . $citystatezip;
 
-			// return $this->fetch( $request );
 
 			$xml = simplexml_load_file(trim($request));
 
-			echo json_encode($xml);
+			echo wp_json_encode($xml);
 
 		}
 
@@ -261,15 +266,58 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$xml = simplexml_load_file(trim($request));
 
-			echo json_encode($xml);
+			echo wp_json_encode($xml);
 
 		}
 
-		function get_chart( $zpid, $unit_type, $width, $height, $chart_duration ) {
+
+		/**
+		 * get_chart function.
+		 *
+		 * @access public
+		 * @param mixed $zpid
+		 * @param mixed $unit_type
+		 * @param string $width (default: '600')
+		 * @param string $height (default: '300')
+		 * @param string $chart_duration (default: '1year')
+		 * @return void
+		 */
+		function get_chart( $zpid, $unit_type, $width = '600', $height = '300', $chart_duration = '1year' ) {
+
+			if ( empty( $zpid ) && empty( $unit_type ) ) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+			}
+
+			$request = $this->base_uri . '/GetChart.htm?zws-id=' . static::$zws_id . '&unit-type=' . $unit_type . '&zpid=' . $zpid;
+
+			$xml = simplexml_load_file($request);
+
+			echo wp_json_encode($xml);
+
 
 		}
 
-		function get_comps( $zpid, $count, $rentzestimate ) {
+
+		/**
+		 * get_comps function.
+		 *
+		 * @access public
+		 * @param mixed $zpid
+		 * @param mixed $count
+		 * @param bool $rentzestimate (default: false)
+		 * @return void
+		 */
+		function get_comps( $zpid, $count, $rentzestimate = false ) {
+
+			if ( empty( $zpid ) && empty( $count ) ) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+			}
+
+			$request = $this->base_uri . '/GetComps.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid . '&count=' . $count;
+
+			$xml = simplexml_load_file($request);
+
+			echo wp_json_encode($xml);
 
 		}
 
