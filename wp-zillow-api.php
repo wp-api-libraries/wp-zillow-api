@@ -264,9 +264,13 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetZestimate.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid;
 
-			$xml = simplexml_load_file(trim($request));
-
-			echo wp_json_encode($xml);
+			$zestimate_xml = simplexml_load_string($zestimate['body']);
+   			
+			$zestimate_json = json_encode($zestimate_xml);
+   			$zestimate_array = json_decode($zestimate_json,TRUE);
+   			$zestimate_response = $zestimate_array['response'];
+			
+			return $zestimate_response;
 
 		}
 
