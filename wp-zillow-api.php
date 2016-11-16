@@ -36,10 +36,10 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		static private $zws_id;
 
 		/**
-		* Return format. XML or JSON.
-		*
-		* @var [string
-	 	*/
+		 * Return format. XML or JSON.
+		 *
+		 * @var [string
+		 */
 	 	static private $output;
 
 		/**
@@ -101,7 +101,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 */
 		function get_reviews( $screenname, $email = null, $count = '3', $returnTeamMemberReviews = null ) {
 
-
 			if ( empty( $screenname ) ) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
 			}
@@ -109,7 +108,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 			$request = $this->base_uri . '/ProReviews.htm?zws-id=' . static::$zws_id . '&screenname=' . $screenname . '&output=json';
 
 			return $this->fetch( $request );
-
 
 		}
 
@@ -124,7 +122,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * @param mixed $callback The name of the JavaScript callback function used to process the returned JSON data. If specified, the returned JSON will be wrapped in a function call with the specified function name. This parameter is intended for use with dynamic script tags. The callback function is only used for JSON output.
 		 * @return void
 		 */
-		function get_rate_summary( $state = null, $callback = '') {
+		function get_rate_summary( $state = null, $callback = '' ) {
 
 			$request = $this->base_uri . '/GetRateSummary.htm?zws-id=' . static::$zws_id . '&output=json';
 
@@ -190,9 +188,9 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * Get Deep Comps.
 		 *
 		 * @access public
-		 * @param mixed $zpid ZPID.
+		 * @param mixed  $zpid ZPID.
 		 * @param string $count (default: '5') Count.
-		 * @param bool $rentzestimate (default: false) Rent Zestimate.
+		 * @param bool   $rentzestimate (default: false) Rent Zestimate.
 		 * @return void
 		 */
 		function get_deep_comps( $zpid, $count = '5', $rentzestimate = false ) {
@@ -200,7 +198,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 			if ( empty( $zpid ) ) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
 			}
-
 
 			$request = $this->base_uri . '/GetDeepComps.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid . '&count=' . $count;
 
@@ -228,7 +225,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
 			}
 
-
 			$request = $this->base_uri . '/GetUpdatedPropertyDetails.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid;
 
 			$xml = simplexml_load_file( $request );
@@ -247,7 +243,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * @access public
 		 * @param mixed $address Address.
 		 * @param mixed $citystatezip City/State/Zip.
-		 * @param bool $rentzestimate (default: false) Rent Zestimate.
+		 * @param bool  $rentzestimate (default: false) Rent Zestimate.
 		 * @return void
 		 */
 		function get_search_results( $address, $citystatezip, $rentzestimate = false ) {
@@ -283,7 +279,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
 			}
 
-
 			$request = $this->base_uri . '/GetZestimate.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid;
 
 			$xml = simplexml_load_file( $request );
@@ -300,8 +295,8 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * get_chart function.
 		 *
 		 * @access public
-		 * @param mixed $zpid ZPID.
-		 * @param mixed $unit_type Unit Type.
+		 * @param mixed  $zpid ZPID.
+		 * @param mixed  $unit_type Unit Type.
 		 * @param string $width (default: '600') Width.
 		 * @param string $height (default: '300') Height.
 		 * @param string $chart_duration (default: '1year') Chart Duration.
@@ -331,7 +326,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * @access public
 		 * @param mixed $zpid ZPID.
 		 * @param mixed $count Count.
-		 * @param bool $rentzestimate (default: false) Rent Zestimate.
+		 * @param bool  $rentzestimate (default: false) Rent Zestimate.
 		 * @return void
 		 */
 		function get_comps( $zpid, $count, $rentzestimate = false ) {
@@ -367,7 +362,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			preg_match( '!\d+_zpid!', $url, $matches );
 
-			$final_match = preg_replace('/_zpid/', '', $matches);
+			$final_match = preg_replace( '/_zpid/', '', $matches );
 
 			return $final_match['0'];
 		}
@@ -380,47 +375,47 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 */
 		public function response_code_msg( $code = '' ) {
 			switch ( $code ) {
-			case 0:
-				$msg = __( 'Request successfully processed.', 'text-domain' );
+				case 0:
+					$msg = __( 'Request successfully processed.', 'text-domain' );
 				break;
-			case 1:
-				$msg = __( 'Service error-there was a server-side error while processing the request.', 'text-domain' );
+				case 1:
+					$msg = __( 'Service error-there was a server-side error while processing the request.', 'text-domain' );
 				break;
-			case 2:
-				$msg = __( 'The specified ZWSID parameter was invalid or not specified in the request.', 'text-domain' );
+				case 2:
+					$msg = __( 'The specified ZWSID parameter was invalid or not specified in the request.', 'text-domain' );
 				break;
-			case 3:
-				$msg = __( 'Web services are currently unavailable.', 'text-domain' );
+				case 3:
+					$msg = __( 'Web services are currently unavailable.', 'text-domain' );
 				break;
-			case 4:
-				$msg = __( 'The API call is currently unavailable.', 'text-domain' );
+				case 4:
+					$msg = __( 'The API call is currently unavailable.', 'text-domain' );
 				break;
-			case 500:
-				$msg = __( 'Invalid or missing address parameter.', 'text-domain' );
+				case 500:
+					$msg = __( 'Invalid or missing address parameter.', 'text-domain' );
 				break;
-			case 501:
-				$msg = __( 'Invalid or missing city, state, zip parameter.', 'text-domain' );
+				case 501:
+					$msg = __( 'Invalid or missing city, state, zip parameter.', 'text-domain' );
 				break;
-			case 502:
-				$msg = __( 'No results found.', 'text-domain' );
+				case 502:
+					$msg = __( 'No results found.', 'text-domain' );
 				break;
-			case 503:
-				$msg = __( 'Failed to resolve city, state or ZIP code.', 'text-domain' );
+				case 503:
+					$msg = __( 'Failed to resolve city, state or ZIP code.', 'text-domain' );
 				break;
-			case 504:
-				$msg = __( 'No coverage for specified area.', 'text-domain' );
+				case 504:
+					$msg = __( 'No coverage for specified area.', 'text-domain' );
 				break;
-			case 505:
-				$msg = __( 'Timeout.', 'text-domain' );
+				case 505:
+					$msg = __( 'Timeout.', 'text-domain' );
 				break;
-			case 506:
-				$msg = __( 'Address string too long.', 'text-domain' );
+				case 506:
+					$msg = __( 'Address string too long.', 'text-domain' );
 				break;
-			case 507:
-				$msg = __( 'No exact match found.', 'text-domain' );
+				case 507:
+					$msg = __( 'No exact match found.', 'text-domain' );
 				break;
-			default:
-				$msg = __( 'Sorry, response code is unknown.' );
+				default:
+					$msg = __( 'Sorry, response code is unknown.' );
 				break;
 			}
 			return $msg;
