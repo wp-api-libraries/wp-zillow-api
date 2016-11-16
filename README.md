@@ -2,6 +2,6 @@
 
 A WordPress php library for interacting with the [Zillow API](https://www.zillow.com/howto/api/APIOverview.htm).
 
-[![Code Climate](https://codeclimate.com/repos/57bb31147afb5a1ab4001926/badges/7079ab38e5a013d8789f/gpa.svg)](https://codeclimate.com/repos/57bb31147afb5a1ab4001926/feed)
-[![Test Coverage](https://codeclimate.com/repos/57bb31147afb5a1ab4001926/badges/7079ab38e5a013d8789f/coverage.svg)](https://codeclimate.com/repos/57bb31147afb5a1ab4001926/coverage)
-[![Issue Count](https://codeclimate.com/repos/57bb31147afb5a1ab4001926/badges/7079ab38e5a013d8789f/issue_count.svg)](https://codeclimate.com/repos/57bb31147afb5a1ab4001926/feed)
+[![Code Climate](https://codeclimate.com/github/wp-api-libraries/wp-zillow-api/badges/gpa.svg)](https://codeclimate.com/github/wp-api-libraries/wp-zillow-api)
+[![Test Coverage](https://codeclimate.com/github/wp-api-libraries/wp-zillow-api/badges/coverage.svg)](https://codeclimate.com/github/wp-api-libraries/wp-zillow-api/coverage)
+[![Issue Count](https://codeclimate.com/github/wp-api-libraries/wp-zillow-api/badges/issue_count.svg)](https://codeclimate.com/github/wp-api-libraries/wp-zillow-api)
