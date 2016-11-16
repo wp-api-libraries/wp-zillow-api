@@ -111,15 +111,12 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 		}
 
-
 		/**
 		 * Get Mortage Rate Summary (https://www.zillow.com/howto/api/GetRateSummary.htm)
 		 *
 		 * @access public
-		 * @param mixed $zws_id The Zillow Web Service Identifier. Required.
-		 * @param mixed $state The state for which to return average mortgage rates. Two-letter state abbreviations should be used (AK, AL, etc). If omitted, national average mortgage rates are returned.
-		 * @param mixed $output The type of output desired. Specify 'xml' for XML output and 'json' for JSON output. If omitted, 'xml' is assumed.
-		 * @param mixed $callback The name of the JavaScript callback function used to process the returned JSON data. If specified, the returned JSON will be wrapped in a function call with the specified function name. This parameter is intended for use with dynamic script tags. The callback function is only used for JSON output.
+		 * @param mixed  $state (default: null) State.
+		 * @param string $callback (default: '') Callback.
 		 * @return void
 		 */
 		function get_rate_summary( $state = null, $callback = '' ) {
@@ -292,7 +289,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		}
 
 		/**
-		 * get_chart function.
+		 * Get Chart.
 		 *
 		 * @access public
 		 * @param mixed  $zpid ZPID.
