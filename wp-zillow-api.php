@@ -10,7 +10,7 @@
 * Plugin URI: https://github.com/wp-api-libraries/wp-zillow-api
 * Description: Perform API requests to Zillow in WordPress.
 * Author: WP API Libraries
-* Version: 1.0.0
+* Version: 1.0.2
 * Author URI: https://wp-api-libraries.com
 * GitHub Plugin URI: https://github.com/wp-api-libraries/wp-zillow-api
 * GitHub Branch: master
@@ -268,7 +268,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 		}
 
-
 		/**
 		 * Get Zillow Zestimate.
 		 * http://wern-ancheta.com/blog/2014/03/20/getting-started-with-zillow-api/
@@ -296,7 +295,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 			return $zestimate;
 
 		}
-
 
 		/**
 		 * get_chart function.
@@ -327,7 +325,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 		}
 
-
 		/**
 		 * Get Comps.
 		 *
@@ -355,7 +352,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 		}
 
-
 		/**
 		 * Get the ZPID from a Zillow Property Url.
 		 *
@@ -375,7 +371,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			return $final_match['0'];
 		}
-
 
 		/**
 		 * Response code message for GetSearchResults.
