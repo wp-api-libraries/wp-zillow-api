@@ -373,7 +373,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$final_match = preg_replace('/_zpid/', '', $matches);
 
-			return $final_match;
+			return $final_match['0'];
 		}
 
 
