@@ -5,6 +5,17 @@
  * @package WP-Zillow-API
  */
 
+/*
+* Plugin Name: WP Zillow API
+* Plugin URI: https://github.com/wp-api-libraries/wp-zillow-api
+* Description: Perform API requests to Zillow in WordPress.
+* Author: WP API Libraries
+* Version: 1.0.0
+* Author URI: https://wp-api-libraries.com
+* GitHub Plugin URI: https://github.com/wp-api-libraries/wp-zillow-api
+* GitHub Branch: master
+*/
+
 /* Exit if accessed directly. */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -54,7 +65,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 		}
 
-
 		/**
 		 * Fetch the request from the API.
 		 *
@@ -95,7 +105,6 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 			if ( empty( $screenname ) ) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
 			}
-
 
 			$request = $this->base_uri . '/ProReviews.htm?zws-id=' . static::$zws_id . '&screenname=' . $screenname . '&output=json';
 
@@ -150,12 +159,12 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 
 		/**
-		 * get_deep_search_results function.
+		 * Get Deep Search Results.
 		 *
 		 * @access public
-		 * @param mixed $address
-		 * @param mixed $citystatezip
-		 * @param mixed $rentzestimate (default: null)
+		 * @param mixed $address Address.
+		 * @param mixed $citystatezip City/State/Zip.
+		 * @param mixed $rentzestimate (default: null) Rent Zestimate.
 		 * @return void
 		 */
 		function get_deep_search_results( $address, $citystatezip, $rentzestimate = null ) {
@@ -166,20 +175,24 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetMonthlyPayments.htm?zws-id=' . static::$zws_id . '&address=' . $address . '&citystatezip=' . $citystatezip;
 
-			$xml = simplexml_load_file(trim($request));
+			$xml = simplexml_load_file( $request );
 
-			echo wp_json_encode($xml);
+			$json = wp_json_encode( $xml );
+
+			$deep_results = json_decode( $json, true );
+
+			return $deep_results;
 
 		}
 
 
 		/**
-		 * get_deep_comps function.
+		 * Get Deep Comps.
 		 *
 		 * @access public
-		 * @param mixed $zpid
-		 * @param string $count (default: '5')
-		 * @param bool $rentzestimate (default: false)
+		 * @param mixed $zpid ZPID.
+		 * @param string $count (default: '5') Count.
+		 * @param bool $rentzestimate (default: false) Rent Zestimate.
 		 * @return void
 		 */
 		function get_deep_comps( $zpid, $count = '5', $rentzestimate = false ) {
@@ -191,18 +204,22 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetDeepComps.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid . '&count=' . $count;
 
-			$xml = simplexml_load_file(trim($request));
+			$xml = simplexml_load_file( $request );
 
-			echo wp_json_encode($xml);
+			$json = wp_json_encode( $xml );
+
+			$deep_comps = json_decode( $json, true );
+
+			return $deep_comps;
 
 		}
 
 
 		/**
-		 * get_updated_property_details function.
+		 * Get Updated Property Details.
 		 *
 		 * @access public
-		 * @param mixed $zpid
+		 * @param mixed $zpid ZPID.
 		 * @return void
 		 */
 		function get_updated_property_details( $zpid ) {
@@ -214,20 +231,23 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetUpdatedPropertyDetails.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid;
 
-			$xml = simplexml_load_file(trim($request));
+			$xml = simplexml_load_file( $request );
 
-			echo wp_json_encode($xml);
+			$json = wp_json_encode( $xml );
+
+			$prop_details = json_decode( $json, true );
+
+			return $prop_details;
 
 		}
 
-
 		/**
-		 * get_search_results function.
+		 * Get Search Results.
 		 *
 		 * @access public
-		 * @param mixed $address
-		 * @param mixed $citystatezip
-		 * @param bool $rentzestimate (default: false)
+		 * @param mixed $address Address.
+		 * @param mixed $citystatezip City/State/Zip.
+		 * @param bool $rentzestimate (default: false) Rent Zestimate.
 		 * @return void
 		 */
 		function get_search_results( $address, $citystatezip, $rentzestimate = false ) {
@@ -238,21 +258,24 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetUpdatedPropertyDetails.htm?zws-id=' . static::$zws_id . '&address=' . $address . '&citystatezip=' . $citystatezip;
 
+			$xml = simplexml_load_file( $request );
 
-			$xml = simplexml_load_file(trim($request));
+			$json = wp_json_encode( $xml );
 
-			echo wp_json_encode($xml);
+			$search_results = json_decode( $json, true );
+
+			return $search_results;
 
 		}
 
 
 		/**
-		 * get_zestimate function.
+		 * Get Zillow Zestimate.
 		 * http://wern-ancheta.com/blog/2014/03/20/getting-started-with-zillow-api/
 		 * https://github.com/letsgetrandy/wp-zestimate
 		 *
 		 * @access public
-		 * @param mixed $zpid
+		 * @param mixed $zpid ZPID.
 		 * @return void
 		 */
 		function get_zestimate( $zpid ) {
@@ -264,13 +287,13 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetZestimate.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid;
 
-			$zestimate_xml = simplexml_load_string($zestimate['body']);
-   			
-			$zestimate_json = json_encode($zestimate_xml);
-   			$zestimate_array = json_decode($zestimate_json,TRUE);
-   			$zestimate_response = $zestimate_array['response'];
-			
-			return $zestimate_response;
+			$xml = simplexml_load_file( $request );
+
+			$json = wp_json_encode( $xml );
+
+			$zestimate = json_decode( $json, true );
+
+			return $zestimate;
 
 		}
 
@@ -279,11 +302,11 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * get_chart function.
 		 *
 		 * @access public
-		 * @param mixed $zpid
-		 * @param mixed $unit_type
-		 * @param string $width (default: '600')
-		 * @param string $height (default: '300')
-		 * @param string $chart_duration (default: '1year')
+		 * @param mixed $zpid ZPID.
+		 * @param mixed $unit_type Unit Type.
+		 * @param string $width (default: '600') Width.
+		 * @param string $height (default: '300') Height.
+		 * @param string $chart_duration (default: '1year') Chart Duration.
 		 * @return void
 		 */
 		function get_chart( $zpid, $unit_type, $width = '600', $height = '300', $chart_duration = '1year' ) {
@@ -294,21 +317,24 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetChart.htm?zws-id=' . static::$zws_id . '&unit-type=' . $unit_type . '&zpid=' . $zpid;
 
-			$xml = simplexml_load_file($request);
+			$xml = simplexml_load_file( $request );
 
-			echo wp_json_encode($xml);
+			$json = wp_json_encode( $xml );
 
+			$chart = json_decode( $json, true );
+
+			return $chart;
 
 		}
 
 
 		/**
-		 * get_comps function.
+		 * Get Comps.
 		 *
 		 * @access public
-		 * @param mixed $zpid
-		 * @param mixed $count
-		 * @param bool $rentzestimate (default: false)
+		 * @param mixed $zpid ZPID.
+		 * @param mixed $count Count.
+		 * @param bool $rentzestimate (default: false) Rent Zestimate.
 		 * @return void
 		 */
 		function get_comps( $zpid, $count, $rentzestimate = false ) {
@@ -319,9 +345,25 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 
 			$request = $this->base_uri . '/GetComps.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid . '&count=' . $count;
 
-			$xml = simplexml_load_file($request);
+			$xml = simplexml_load_file( $request );
 
-			echo wp_json_encode($xml);
+			$json = wp_json_encode( $xml );
+
+			$comps = json_decode( $json, true );
+
+			return $comps;
+
+		}
+
+
+		/**
+		 * Get the ZPID from a Zillow Property Url.
+		 *
+		 * @access public
+		 * @param mixed $url URL.
+		 * @return void
+		 */
+		function get_zpid_from_url( $url ) {
 
 		}
 
