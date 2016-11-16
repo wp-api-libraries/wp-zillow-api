@@ -365,6 +365,15 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 */
 		function get_zpid_from_url( $url ) {
 
+			if ( empty( $url ) ) {
+				return new WP_Error( 'required-fields', __( 'Please provide a URL.', 'text-domain' ) );
+			}
+
+			preg_match( '!\d+_zpid!', $url, $matches );
+
+			$final_match = preg_replace('/_zpid/', '', $matches);
+
+			return $final_match;
 		}
 
 
