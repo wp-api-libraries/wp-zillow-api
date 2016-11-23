@@ -362,6 +362,25 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		}
 
 		/**
+		 * Get Agent/Team Screenname from URL.
+		 *
+		 * @access public
+		 * @param mixed $url URL.
+		 * @return void
+		 */
+		function get_agent_screenname_from_url( $url ) {
+
+			if ( empty( $url ) ) {
+				return new WP_Error( 'required-fields', __( 'Please provide a URL.', 'text-domain' ) );
+			}
+
+			$final_match = preg_replace( '/\/(\d+)$/', '', explode('/', $url) );
+
+			return $final_match[4];
+
+		}
+
+		/**
 		 * Response code message for GetSearchResults.
 		 *
 		 * @param  [String] $code : Response code to get message from.
