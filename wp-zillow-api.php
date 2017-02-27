@@ -48,7 +48,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		 * @var string
 		 * @access protected
 		 */
-		protected $base_uri = 'https://www.zillow.com/webservice/';
+		protected $base_uri = 'https://www.zillow.com/webservice';
 
 		/**
 		 * Construct.
