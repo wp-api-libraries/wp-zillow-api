@@ -19,7 +19,6 @@
 /* Exit if accessed directly. */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-
 /* Check if class exists. */
 if ( ! class_exists( 'ZillowAPI' ) ) {
 
@@ -78,7 +77,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 			$code = wp_remote_retrieve_response_code( $response );
 
 			if ( 200 !== $code ) {
-				return new WP_Error( 'response-error', sprintf( __( 'Server response code: %d', 'text-domain' ), $code ) );
+				return new WP_Error( 'response-error', sprintf( __( 'Server response code: %d', 'wp-zillow-api' ), $code ) );
 			}
 
 			$body = wp_remote_retrieve_body( $response );
@@ -100,7 +99,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_reviews( $screenname, $email = null, $count = '3', $returnTeamMemberReviews = null ) {
 
 			if ( empty( $screenname ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'wp-zillow-api' ) );
 			}
 
 			$request = $this->base_uri . '/ProReviews.htm?zws-id=' . static::$zws_id . '&screenname=' . $screenname . '&output=json';
@@ -140,7 +139,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_monthly_payments( $price, $down = null, $dollarsdown = null, $zip = null, $output = null, $callback = null ) {
 
 			if ( empty( $price ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'wp-zillow-api' ) );
 			}
 
 			$request = $this->base_uri . '/GetMonthlyPayments.htm?zws-id=' . static::$zws_id . '&output=json' . '&price=' . $price;
@@ -162,7 +161,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_deep_search_results( $address, $citystatezip, $rentzestimate = null ) {
 
 			if ( empty( $address ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'wp-zillow-api' ) );
 			}
 
 			$request = $this->base_uri . '/GetMonthlyPayments.htm?zws-id=' . static::$zws_id . '&address=' . $address . '&citystatezip=' . $citystatezip;
@@ -190,7 +189,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_deep_comps( $zpid, $count = '5', $rentzestimate = false ) {
 
 			if ( empty( $zpid ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'wp-zillow-api' ) );
 			}
 
 			$request = $this->base_uri . '/GetDeepComps.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid . '&count=' . $count;
@@ -216,7 +215,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_updated_property_details( $zpid ) {
 
 			if ( empty( $zpid ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'wp-zillow-api' ) );
 			}
 
 			$request = $this->base_uri . '/GetUpdatedPropertyDetails.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid;
@@ -243,7 +242,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_search_results( $address, $citystatezip, $rentzestimate = false ) {
 
 			if ( empty( $address ) && empty( $citystatezip ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'wp-zillow-api' ) );
 			}
 
 			$request = $this->base_uri . '/GetUpdatedPropertyDetails.htm?zws-id=' . static::$zws_id . '&address=' . $address . '&citystatezip=' . $citystatezip;
@@ -270,7 +269,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_zestimate( $zpid ) {
 
 			if ( empty( $zpid ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'wp-zillow-api' ) );
 			}
 
 			$request = $this->base_uri . '/GetZestimate.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid;
@@ -299,7 +298,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_chart( $zpid, $unit_type, $width = '600', $height = '300', $chart_duration = '1year' ) {
 
 			if ( empty( $zpid ) && empty( $unit_type ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'wp-zillow-api' ) );
 			}
 
 			$request = $this->base_uri . '/GetChart.htm?zws-id=' . static::$zws_id . '&unit-type=' . $unit_type . '&zpid=' . $zpid;
@@ -326,7 +325,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_comps( $zpid, $count, $rentzestimate = false ) {
 
 			if ( empty( $zpid ) && empty( $count ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty.', 'wp-zillow-api' ) );
 			}
 
 			$request = $this->base_uri . '/GetComps.htm?zws-id=' . static::$zws_id . '&zpid=' . $zpid . '&count=' . $count;
@@ -351,7 +350,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_zpid_from_url( $url ) {
 
 			if ( empty( $url ) ) {
-				return new WP_Error( 'required-fields', __( 'Please provide a URL.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Please provide a URL.', 'wp-zillow-api' ) );
 			}
 
 			preg_match( '!\d+_zpid!', $url, $matches );
@@ -371,7 +370,7 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		function get_agent_screenname_from_url( $url ) {
 
 			if ( empty( $url ) ) {
-				return new WP_Error( 'required-fields', __( 'Please provide a URL.', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Please provide a URL.', 'wp-zillow-api' ) );
 			}
 
 			$final_match = preg_replace( '/\/(\d+)$/', '', explode('/', $url) );
@@ -389,46 +388,46 @@ if ( ! class_exists( 'ZillowAPI' ) ) {
 		public function response_code_msg( $code = '' ) {
 			switch ( $code ) {
 				case 0:
-					$msg = __( 'Request successfully processed.', 'text-domain' );
+					$msg = __( 'Request successfully processed.', 'wp-zillow-api' );
 				break;
 				case 1:
-					$msg = __( 'Service error-there was a server-side error while processing the request.', 'text-domain' );
+					$msg = __( 'Service error-there was a server-side error while processing the request.', 'wp-zillow-api' );
 				break;
 				case 2:
-					$msg = __( 'The specified ZWSID parameter was invalid or not specified in the request.', 'text-domain' );
+					$msg = __( 'The specified ZWSID parameter was invalid or not specified in the request.', 'wp-zillow-api' );
 				break;
 				case 3:
-					$msg = __( 'Web services are currently unavailable.', 'text-domain' );
+					$msg = __( 'Web services are currently unavailable.', 'wp-zillow-api' );
 				break;
 				case 4:
-					$msg = __( 'The API call is currently unavailable.', 'text-domain' );
+					$msg = __( 'The API call is currently unavailable.', 'wp-zillow-api' );
 				break;
 				case 500:
-					$msg = __( 'Invalid or missing address parameter.', 'text-domain' );
+					$msg = __( 'Invalid or missing address parameter.', 'wp-zillow-api' );
 				break;
 				case 501:
-					$msg = __( 'Invalid or missing city, state, zip parameter.', 'text-domain' );
+					$msg = __( 'Invalid or missing city, state, zip parameter.', 'wp-zillow-api' );
 				break;
 				case 502:
-					$msg = __( 'No results found.', 'text-domain' );
+					$msg = __( 'No results found.', 'wp-zillow-api' );
 				break;
 				case 503:
-					$msg = __( 'Failed to resolve city, state or ZIP code.', 'text-domain' );
+					$msg = __( 'Failed to resolve city, state or ZIP code.', 'wp-zillow-api' );
 				break;
 				case 504:
-					$msg = __( 'No coverage for specified area.', 'text-domain' );
+					$msg = __( 'No coverage for specified area.', 'wp-zillow-api' );
 				break;
 				case 505:
-					$msg = __( 'Timeout.', 'text-domain' );
+					$msg = __( 'Timeout.', 'wp-zillow-api' );
 				break;
 				case 506:
-					$msg = __( 'Address string too long.', 'text-domain' );
+					$msg = __( 'Address string too long.', 'wp-zillow-api' );
 				break;
 				case 507:
-					$msg = __( 'No exact match found.', 'text-domain' );
+					$msg = __( 'No exact match found.', 'wp-zillow-api' );
 				break;
 				default:
-					$msg = __( 'Sorry, response code is unknown.' );
+					$msg = __( 'Sorry, response code is unknown.', 'wp-zillow-api' );
 				break;
 			}
 			return $msg;
