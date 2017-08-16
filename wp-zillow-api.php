@@ -1,8 +1,9 @@
 <?php
 /**
- * WP-Zillow-API (https://www.zillow.com/howto/api/APIOverview.htm)
+ * WP-Zillow-API
  *
- * @package WP-Zillow-API
+ * @link https://www.zillow.com/howto/api/APIOverview.htm API Docs
+ * @package WP-API-Libraries\WP-Zillow-API
  */
 
 /*
